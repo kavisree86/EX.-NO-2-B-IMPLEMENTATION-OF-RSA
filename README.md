@@ -20,8 +20,66 @@
   STEP-7: Decryption is done as cipherdmod n.
   
 ## PROGRAM: 
+```
+#include <stdio.h>
+#include <math.h>
+
+// Function to compute GCD
+int gcd(int a, int h) {
+    int temp;
+    while(1) {
+        temp = a % h;
+        if (temp == 0)
+            return h;
+        a = h;
+        h = temp;
+    }
+}
+
+int main() {
+    // Two prime numbers
+    int p = 3;
+    int q = 7;
+    
+    // Public and private keys
+    int n = p * q;
+    int phi = (p - 1) * (q - 1);
+    int e = 2;
+
+    // Find e such that gcd(e, phi) = 1
+    while (e < phi) {
+        if (gcd(e, phi) == 1)
+            break;
+        else
+            e++;
+    }
+
+    // Choose k (integer multiplier)
+    int k = 2;
+    
+    // Calculate d (Private key)
+    int d = (1 + (k * phi)) / e;
+
+    // Message to be encrypted
+    int msg = 12;
+    
+    printf("Message data = %d\n", msg);
+
+    // Encryption: c = (msg ^ e) % n
+    long long c = (long long)pow(msg, e) % n;
+    printf("Encrypted data = %lld\n", c);
+
+    // Decryption: m = (c ^ d) % n
+    long long m = (long long)pow(c, d) % n;
+    printf("Original Message Sent = %lld\n", m);
+    printf("Code by KAVISREE S");
+    return 0;
+}
+```
 
 ## OUTPUT:
+<img width="220" alt="image" src="https://github.com/user-attachments/assets/abbb4a28-0bcc-4e76-a1fa-63a55508e841" />
+
 
 ## RESULT:
   Thus the C program to implement RSA encryption technique had been implemented successfully
